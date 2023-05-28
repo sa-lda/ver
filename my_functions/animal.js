@@ -22,33 +22,32 @@ exports.handler = async function (event, context) {
       
   
   let name = event.path.split("/").pop()
-  if (name === "meowsalot") {
+  if (name === "ola") {
     return new Promise((resolve, reject) => {
+    	    let select = 'SELECT * FROM contact_form LIMIT 30';
    
-    let select = 'SELECT * FROM contact_form LIMIT 30';
-   
-    db.query(select, function (err, results, fields) {
-        if (err) {
-            console.log(err.message);
-        }
-      
-        resolve({
-          statusCode: 200,
-          headers: {
-            'Cache-Control': 'max-age=10',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Content-Type'
-          },
-          body: JSON.stringify(results)
-        })
-    });
+	    db.query(select, function (err, results, fields) {
+		if (err) {
+		    console.log(err.message);
+		}
 
-    db.end(function (err) {
-        if (err) {
-            return console.log(err.message);
-        }
-    });
-   
+		resolve({
+		  statusCode: 200,
+		  headers: {
+		    'Access-Control-Allow-Origin': '*',
+		    'Content-Type': 'application/json',
+		      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+		      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+		  },
+		  body: JSON.stringify(results)
+		})
+	    });
+
+	    db.end(function (err) {
+		if (err) {
+		    return console.log(err.message);
+		}
+	    });
     });
   } else if (name === "barksalot") {
     return {
