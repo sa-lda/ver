@@ -1,15 +1,12 @@
 const mysql = require('mysql');
 
 exports.handler = async function (event, context) {
-    var sadas = 'at54h9bey';
-    var ssdassa = 'pscale_pw_aOgSoWw5mJM4aPR';
-
     const db = mysql.createConnection({
         host: process.env.HOST,
         port: 3306,
-        user: "6sa6f3lkoy9" + sadas,
-        password: ssdassa + "lYxIkmkMtE4ORo8UDzOwsFIaVjbf",
-        database: "app",
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DB,
         ssl: {
             rejectUnauthorized: true,
         },
