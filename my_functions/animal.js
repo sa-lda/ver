@@ -35,8 +35,7 @@ exports.handler = async function (event, context) {
 		  statusCode: 200,
 		  headers: {
 			'Access-Control-Allow-Origin': '*',
-			'Content-Type': 'application/json',
-			'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+			'Content-Type': 'application/json'
 		  },
 		  body: JSON.stringify(results)
 		})
