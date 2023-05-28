@@ -5,7 +5,7 @@ exports.handler = async function (event, context) {
     var ssdassa = 'pscale_pw_aOgSoWw5mJM4aPR';
 
     const db = mysql.createConnection({
-        host: "aws.connect.psdb.cloud",
+        host: process.env.HOST,
         port: 3306,
         user: "6sa6f3lkoy9" + sadas,
         password: ssdassa + "lYxIkmkMtE4ORo8UDzOwsFIaVjbf",
@@ -22,7 +22,7 @@ exports.handler = async function (event, context) {
 
 
     let name = event.path.split("/").pop()
-    if (name === "") {
+    if (name === "contact") {
         return new Promise((resolve, reject) => {
             let select = 'SELECT * FROM contact_form LIMIT 30';
 
