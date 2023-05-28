@@ -22,7 +22,7 @@ exports.handler = async function (event, context) {
 
 
     let name = event.path.split("/").pop()
-    if (name === "ola") {
+    if (name === "") {
         return new Promise((resolve, reject) => {
             let select = 'SELECT * FROM contact_form LIMIT 30';
 
@@ -50,13 +50,19 @@ exports.handler = async function (event, context) {
     } else if (name === "barksalot") {
         return {
             statusCode: 200,
-            headers: { "Cache-Control": "max-age=10" },
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ name: "Barksalot", species: "dog", "photo": "https://learnwebcode.github.io/json-example/images/dog-1.jpg", bio: "This dog is very communicative. Deleniti, tempora quis commodi qui inventore ratione rem porro doloribus et obcaecati cumque quibusdam voluptatibus iure nisi aut minima consequuntur, officiis esse? Lorem ipsum, dolor sit amet consectetur adipisicing elit." })
         }
     } else if (name === "purrsloud") {
         return {
             statusCode: 200,
-            headers: { "Cache-Control": "max-age=10" },
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ name: "Purrsloud", species: "cat", "photo": "https://learnwebcode.github.io/json-example/images/cat-2.jpg", bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis asperiores, sunt consectetur a amet dolorem rem animi tempore molestias nesciunt fuga, sequi alias voluptatum totam reprehenderit assumenda deleniti distinctio? Cumque. Lorem ipsum." })
         }
     } else {
