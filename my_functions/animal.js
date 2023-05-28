@@ -24,11 +24,6 @@ exports.handler = async function (event, context) {
   let name = event.path.split("/").pop()
   if (name === "meowsalot") {
     return new Promise((resolve, reject) => {
- 
- db.connect(function (err) {
-    if (err) {
-        return console.error('error: ' + err.message);
-    }
    
     let select = 'SELECT * FROM contact_form LIMIT 30';
    
@@ -53,7 +48,6 @@ exports.handler = async function (event, context) {
             return console.log(err.message);
         }
     });
-});
    
     });
   } else if (name === "barksalot") {
