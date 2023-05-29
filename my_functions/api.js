@@ -62,15 +62,25 @@ exports.handler = async function (event, context) {
                 });
             });
             break;
-        case "barksalot":
-            return {
-                statusCode: 200,
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name: "Barksalot", species: "dog", "photo": "https://learnwebcode.github.io/json-example/images/dog-1.jpg", bio: "This dog is very communicative. Deleniti, tempora quis commodi qui inventore ratione rem porro doloribus et obcaecati cumque quibusdam voluptatibus iure nisi aut minima consequuntur, officiis esse? Lorem ipsum, dolor sit amet consectetur adipisicing elit." })
-            }
+        case "sessions":
+            return new Promise((resolve, reject) => {
+                db.query('SELECT * FROM security_log LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    
+                    db.end();
+    
+                    resolve({
+                        statusCode: 200,
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(show(results))
+                    })
+                });
+            });
             break;
         case "purrsloud":
             return {
