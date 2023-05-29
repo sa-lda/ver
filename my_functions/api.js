@@ -9,7 +9,7 @@ exports.handler = async function (event, context) {
     
     const params = JSON.parse(event.body);
     
-    if(process.env.ACCESS_TOKEN != event.headers.Authorization) {
+    if(process.env.ACCESS_TOKEN != event.headers.authorization) {
         return {
             statusCode: 403,
             body: JSON.stringify({
