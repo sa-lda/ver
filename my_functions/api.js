@@ -11,10 +11,7 @@ exports.handler = async function (event, context) {
     
     if(process.env.ACCESS_TOKEN != event.headers.authorization) {
         return {
-            statusCode: 403,
-            body: JSON.stringify({
-                message: event.headers
-            })
+            statusCode: 403
         }
     }
     
