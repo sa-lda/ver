@@ -7,6 +7,8 @@ exports.handler = async function (event, context) {
         }
     }
     
+    const params = JSON.parse(event.body);
+    
     const db = mysql.createConnection({
         host: process.env.HOST,
         port: 3306,
@@ -34,6 +36,8 @@ exports.handler = async function (event, context) {
                     if (err) {
                         console.log(err.message);
                     }
+                    
+                    db.end();
     
                     resolve({
                         statusCode: 200,
@@ -41,14 +45,11 @@ exports.handler = async function (event, context) {
                             'Access-Control-Allow-Origin': '*',
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(results)
+                        body: JSON.stringify({
+                            message: results,
+                            asd: params.page
+                        })
                     })
-                });
-    
-                db.end(function (err) {
-                    if (err) {
-                        return console.log(err.message);
-                    }
                 });
             });
             break;
