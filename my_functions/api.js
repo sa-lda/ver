@@ -42,7 +42,7 @@ exports.handler = async function (event, context) {
     }
     
     switch (path) {
-        case "contact":
+        case "messages":
             return new Promise((resolve, reject) => {
                 db.query('SELECT * FROM contact_form LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
                     if (err) {
