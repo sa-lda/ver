@@ -13,7 +13,7 @@ exports.handler = async function (event, context) {
         return {
             statusCode: 403,
             body: JSON.stringify({
-                message: event.headers.Authorization
+                message: event.headers
             })
         }
     }
