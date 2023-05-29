@@ -3,7 +3,7 @@ const mysql = require('mysql');
 exports.handler = async function (event, context) {
     if(event.httpMethod != "POST") {
         return {
-            statusCode: 403
+            statusCode: 405
         }
     }
     
