@@ -30,9 +30,7 @@ exports.handler = async function (event, context) {
     switch (path) {
         case "contact":
             return new Promise((resolve, reject) => {
-                let select = 'SELECT * FROM contact_form LIMIT 30';
-    
-                db.query(select, function (err, results, fields) {
+                db.query('SELECT * FROM contact_form LIMIT 10 OFFSET ?', [params.page && params.page>0 ? parseInt(params.page-1) : 0], function (err, results, fields) {
                     if (err) {
                         console.log(err.message);
                     }
@@ -45,10 +43,7 @@ exports.handler = async function (event, context) {
                             'Access-Control-Allow-Origin': '*',
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({
-                            message: results,
-                            asd: params.page
-                        })
+                        body: JSON.stringify(results)
                     })
                 });
             });
