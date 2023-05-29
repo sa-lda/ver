@@ -1,6 +1,12 @@
 const mysql = require('mysql');
 
 exports.handler = async function (event, context) {
+    if(event.httpMethod != "POST") {
+        return {
+            statusCode: 403
+        }
+    }
+    
     const db = mysql.createConnection({
         host: process.env.HOST,
         port: 3306,
