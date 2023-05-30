@@ -33,14 +33,6 @@ exports.handler = async function (event, context) {
 
     let path = event.path.split("/").pop();
     
-    function show(output) {
-        var results = [];
-        for (var i = 0; i < output.length; i++) {
-            results.push(Object.values(output[i]));
-        }
-        return results;
-    }
-    
     switch (path) {
         case "messages":
             return new Promise((resolve, reject) => {
@@ -57,7 +49,7 @@ exports.handler = async function (event, context) {
                             'Access-Control-Allow-Origin': '*',
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(show(results))
+                        body: JSON.stringify(results.map(result => Object.values(result)))
                     })
                 });
             });
