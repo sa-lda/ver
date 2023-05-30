@@ -31,77 +31,24 @@ exports.handler = async function (event, context) {
         }
     });
 
-    let path = event.path.split("/").pop();
-    
-    function show(output) {
-        var results = [];
-        for (var i = 0; i < output.length; i++) {
-            results.push(Object.values(output[i]));
-        }
-        return results;
-    }
-    
-    switch (path) {
-        case "messages":
-            return new Promise((resolve, reject) => {
-                db.query('SELECT * FROM contact_form LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
-                    if (err) {
-                        console.log(err.message);
-                    }
-                    
-                    db.end();
-    
-                    resolve({
-                        statusCode: 200,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(show(results))
-                    })
-                });
-            });
-            break;
-        case "sessions":
-            return new Promise((resolve, reject) => {
-                db.query('SELECT * FROM security_log LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
-                    if (err) {
-                        console.log(err.message);
-                    }
-                    
-                    db.end();
-    
-                    resolve({
-                        statusCode: 200,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(show(results))
-                    })
-                });
-            });
-            break;
-        case "purrsloud":
-            return {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT * FROM contact_form LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
+            if (err) {
+                console.log(err.message);
+            }
+
+            db.end();
+
+            const data = results.map(result => Object.values(result));
+            
+            resolve({
                 statusCode: 200,
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name: "Purrsloud", species: "cat", "photo": "https://learnwebcode.github.io/json-example/images/cat-2.jpg", bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis asperiores, sunt consectetur a amet dolorem rem animi tempore molestias nesciunt fuga, sequi alias voluptatum totam reprehenderit assumenda deleniti distinctio? Cumque. Lorem ipsum." })
-            }
-            break;
-        default:
-            return {
-                statusCode: 404,
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: "Not found"
-                })
-            }
-    }
+                body: JSON.stringify(data)
+            })
+        });
+    });
 }
