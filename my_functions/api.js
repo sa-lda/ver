@@ -1,13 +1,12 @@
 const mysql = require('mysql');
 
 exports.handler = async function (event, context) {
-    /*
     if(event.httpMethod != "POST") {
         return {
             statusCode: 405
         }
     }
-    */
+    
     const params = JSON.parse(event.body);
     
     if(process.env.ACCESS_TOKEN != event.headers.authorization) {
