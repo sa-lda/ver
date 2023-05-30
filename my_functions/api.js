@@ -9,11 +9,13 @@ exports.handler = async function (event, context) {
     
     const params = JSON.parse(event.body);
     
+    /*
     if(process.env.ACCESS_TOKEN != event.headers.authorization) {
         return {
             statusCode: 403
         }
     }
+    */
     
     const db = mysql.createConnection({
         host: process.env.HOST,
