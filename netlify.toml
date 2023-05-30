@@ -3,3 +3,8 @@
   publish = "dist/"
   command  = "npm install mysql && npm run build"
   functions = "my_functions/"
+  
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
