@@ -14,7 +14,7 @@ exports.handler = async function (event, context) {
             statusCode: 403
         }
     }
-    
+
     const db = mysql.createConnection({
         host: process.env.HOST,
         port: 3306,
@@ -32,16 +32,14 @@ exports.handler = async function (event, context) {
     });
 
     let path = event.path.split("/").pop();
-    
+
     switch (path) {
-        case "messages":
+        case "contact":
             return new Promise((resolve, reject) => {
                 db.query('SELECT * FROM cf_rhskcowwmy LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
                     if (err) {
                         console.log(err.message);
                     }
-                    
-                    db.end();
     
                     resolve({
                         statusCode: 200,
@@ -49,30 +47,26 @@ exports.handler = async function (event, context) {
                             'Access-Control-Allow-Origin': '*',
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(results.map(result => Object.values(result)))
+                        body: JSON.stringify(results)
                     })
+                });
+    
+                db.end(function (err) {
+                    if (err) {
+                        return console.log(err.message);
+                    }
                 });
             });
             break;
-        case "sessions":
-            return new Promise((resolve, reject) => {
-                db.query('SELECT * FROM security_log LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
-                    if (err) {
-                        console.log(err.message);
-                    }
-                    
-                    db.end();
-    
-                    resolve({
-                        statusCode: 200,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(show(results))
-                    })
-                });
-            });
+        case "barksalot":
+            return {
+                statusCode: 200,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: "Barksalot", species: "dog", "photo": "https://learnwebcode.github.io/json-example/images/dog-1.jpg", bio: "This dog is very communicative. Deleniti, tempora quis commodi qui inventore ratione rem porro doloribus et obcaecati cumque quibusdam voluptatibus iure nisi aut minima consequuntur, officiis esse? Lorem ipsum, dolor sit amet consectetur adipisicing elit." })
+            }
             break;
         case "purrsloud":
             return {
