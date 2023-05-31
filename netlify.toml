@@ -3,8 +3,3 @@
   publish = "dist/"
   command  = "npx browserslist@latest --update-db && npm install mysql && npm run build"
   functions = "my_functions/"
-
-[[headers]]
-  for = "/*"
-    [headers.values]
-      Access-Control-Allow-Origin = "*"
