@@ -1,7 +1,8 @@
 const mysql = require('mysql');
 
 exports.handler = async function (event, context) {
-    if(event.httpMethod != "POST") {
+    if(event.httpMethod == "POST" || event.httpMethod == "OPTIONS") {}
+    else {
         return {
             statusCode: 405
         }
