@@ -7,4 +7,9 @@
 [[headers]]
   for = "/*"
     [headers.values]
-    Access-Control-Allow-Origin = "*"
+      Access-Control-Allow-Origin = "*"
+
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  headers = { Access-Control-Allow-Origin = "*", Access-Control-Allow-Headers = "Content-Type" }
