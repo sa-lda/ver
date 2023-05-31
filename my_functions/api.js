@@ -35,7 +35,7 @@ exports.handler = async function (event, context) {
     let path = event.path.split("/").pop();
 
     switch (path) {
-        case "contact":
+        case "grkighn6d2":
             return new Promise((resolve, reject) => {
                 db.query('SELECT * FROM cf_rhskcowwmy LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
                     if (err) {
