@@ -48,7 +48,7 @@ exports.handler = async function (event, context) {
                             'Access-Control-Allow-Origin': '*',
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(results)
+                        body: JSON.stringify(results.map(result=>Object.values(result))
                     })
                 });
     
