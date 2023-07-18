@@ -1,8 +1,8 @@
 const mysql = require('mysql');
+const stripe = require('stripe')(process.env.STP);
 
 exports.handler = async function (event, context) {
-    if(event.httpMethod == "POST" || event.httpMethod == "OPTIONS") {}
-    else {
+    if(event.httpMethod != "POST" && event.httpMethod != "OPTIONS") {
         return {
             statusCode: 405
         }
@@ -35,56 +35,9 @@ exports.handler = async function (event, context) {
     let path = event.path.split("/").pop();
 
     switch (path) {
-        case "grkighn6d2":
-            return new Promise((resolve, reject) => {
-                db.query('SELECT * FROM cf_rhskcowwmy LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
-                    if (err) {
-                        console.log(err.message);
-                    }
-    
-                    resolve({
-                        statusCode: 200,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(results.map(result=>Object.values(result)))
-                    })
-                });
-    
-                db.end(function (err) {
-                    if (err) {
-                        return console.log(err.message);
-                    }
-                });
-            });
-            break;
-        case "b83n4xkqla":
-            return new Promise((resolve, reject) => {
-                db.query('SELECT * FROM sl_rhskcowwmy LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
-                    if (err) {
-                        console.log(err.message);
-                    }
-    
-                    resolve({
-                        statusCode: 200,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(results.map(result=>Object.values(result)))
-                    })
-                });
-    
-                db.end(function (err) {
-                    if (err) {
-                        return console.log(err.message);
-                    }
-                });
-            });
-            break;
-        case "yw2f51wwfu":
-            return new Promise((resolve, reject) => {
+        case "uk8f13owie":
+            return new Promise(async (resolve, reject) => {
+                /*
                 db.query('SELECT * FROM cu_3d7aicvmk5 LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
                     if (err) {
                         console.log(err.message);
@@ -105,6 +58,37 @@ exports.handler = async function (event, context) {
                         return console.log(err.message);
                     }
                 });
+                */
+            
+                const items = params.items;
+                let lineItems = [];
+                items.forEach((item)=> {
+                    lineItems.push(
+                        {
+                            price: item.id,
+                            quantity: item.quantity
+                        }
+                    )
+                });
+            
+                const session = await stripe.checkout.sessions.create({
+                    line_items: lineItems,
+                    mode: 'payment',
+                    success_url: "http://localhost:3000/success",
+                    cancel_url: "http://localhost:3000/cancel"
+                });
+                
+                resolve({
+                    statusCode: 200,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        url: session.url
+                    })
+                })
+            
             });
             break;
         default:
