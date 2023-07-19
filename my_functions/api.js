@@ -84,6 +84,9 @@ exports.handler = async function (event, context) {
                         enabled: true,
                       }
                 });
+
+                const info = await stripe.checkout.sessions.retrieve(session.id);
+                 
                 
                 resolve({
                     statusCode: 200,
@@ -93,7 +96,8 @@ exports.handler = async function (event, context) {
                     },
                     body: JSON.stringify({
                         id: session.id,
-                        url: session.url
+                        url: session.url,
+                        details: info
                     })
                 })
             
