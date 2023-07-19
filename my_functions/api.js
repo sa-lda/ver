@@ -52,7 +52,7 @@ exports.handler = async function (event, context) {
                     payment_method_types: ['card'],
                     line_items: lineItems,
                     mode: 'payment',
-                    success_url: "http://localhost:3000/success",
+                    success_url: "http://localhost:3000/success?id={CHECKOUT_SESSION_ID}",
                     cancel_url: "http://localhost:3000/cancel",
                     shipping_address_collection: {
                         allowed_countries: ['US', 'CA', 'GB', 'DE'], // Set the list of allowed countries for shipping
