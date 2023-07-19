@@ -59,10 +59,7 @@ exports.handler = async function (event, context) {
                     },
                       phone_number_collection: {
                         enabled: true,
-                      },
-  automatic_tax: {
-    enabled: true,
-  },
+                      }
                 });
                 
                 resolve({
