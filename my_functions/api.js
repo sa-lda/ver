@@ -72,14 +72,11 @@ exports.handler = async function (event, context) {
                 });
             
                 const session = await stripe.checkout.sessions.create({
+                    payment_method_types: ['card'],
                     line_items: lineItems,
                     mode: 'payment',
                     success_url: "http://localhost:3000/success",
-                    cancel_url: "http://localhost:3000/cancel",
-                    shipping_address_collection: {
-                        allowed_countries: ['US'],
-                        required: true
-                    },
+                    cancel_url: "http://localhost:3000/cancel"
                 });
                 
                 resolve({
@@ -89,6 +86,7 @@ exports.handler = async function (event, context) {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                        id: session.id,
                         url: session.url
                     })
                 })
