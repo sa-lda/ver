@@ -76,7 +76,10 @@ exports.handler = async function (event, context) {
                     line_items: lineItems,
                     mode: 'payment',
                     success_url: "http://localhost:3000/success",
-                    cancel_url: "http://localhost:3000/cancel"
+                    cancel_url: "http://localhost:3000/cancel",
+                    shipping_address_collection: {
+            allowed_countries: ['US', 'CA', 'GB', 'DE'], // Set the list of allowed countries for shipping
+          }
                 });
                 
                 resolve({
