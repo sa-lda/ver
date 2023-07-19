@@ -77,6 +77,7 @@ exports.handler = async function (event, context) {
                     success_url: "http://localhost:3000/success",
                     cancel_url: "http://localhost:3000/cancel",
                     shipping_address_collection: {
+                        allowed_countries: ['US'],
                         required: true
                     },
                 });
