@@ -78,8 +78,17 @@ exports.handler = async function (event, context) {
                     success_url: "http://localhost:3000/success",
                     cancel_url: "http://localhost:3000/cancel",
                     shipping_address_collection: {
-            allowed_countries: ['US', 'CA', 'GB', 'DE'], // Set the list of allowed countries for shipping
-          }
+                        allowed_countries: ['US', 'CA', 'GB', 'DE'], // Set the list of allowed countries for shipping
+                    },
+                    billing_address_collection: 'auto',
+  payment_intent_data: {
+    metadata: {
+      order_id: 'NF12345678',
+    },
+    billing_address_collection: {
+      optional: true,
+    },
+  },
                 });
                 
                 resolve({
