@@ -36,30 +36,7 @@ exports.handler = async function (event, context) {
 
     switch (path) {
         case "uk8f13owie":
-            return new Promise(async (resolve, reject) => {
-                /*
-                db.query('SELECT * FROM cu_3d7aicvmk5 LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
-                    if (err) {
-                        console.log(err.message);
-                    }
-    
-                    resolve({
-                        statusCode: 200,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(results.map(result=>Object.values(result)))
-                    })
-                });
-    
-                db.end(function (err) {
-                    if (err) {
-                        return console.log(err.message);
-                    }
-                });
-                */
-            
+            return new Promise(async (resolve, reject) => {            
                 const items = params.items;
                 let lineItems = [];
                 items.forEach((item)=> {
@@ -84,9 +61,6 @@ exports.handler = async function (event, context) {
                         enabled: true,
                       }
                 });
-
-                const info = await stripe.checkout.sessions.retrieve(session.id);
-                 
                 
                 resolve({
                     statusCode: 200,
@@ -96,11 +70,49 @@ exports.handler = async function (event, context) {
                     },
                     body: JSON.stringify({
                         id: session.id,
-                        url: session.url,
-                        details: info
+                        url: session.url
                     })
                 })
             
+            });
+            break;
+        case "ye8vw13div":
+            return new Promise(async (resolve, reject) => {    
+                /*
+                db.query('SELECT * FROM cu_3d7aicvmk5 LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+    
+                    resolve({
+                        statusCode: 200,
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(results.map(result=>Object.values(result)))
+                    })
+                });
+    
+                db.end(function (err) {
+                    if (err) {
+                        return console.log(err.message);
+                    }
+                });
+                */
+                
+                const info = await stripe.checkout.sessions.retrieve(params.id);
+                
+                    resolve({
+                        statusCode: 200,
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            details: info
+                        })
+                    })
             });
             break;
         default:
