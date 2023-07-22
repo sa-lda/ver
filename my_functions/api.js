@@ -77,42 +77,55 @@ exports.handler = async function (event, context) {
             });
             break;
         case "ye8vw13div":
-            return new Promise(async (resolve, reject) => {    
-                /*
-                db.query('SELECT * FROM cu_3d7aicvmk5 LIMIT 10 OFFSET ?', [params.page > 0 ? parseInt(params.page)-1 : 0], function (err, results, fields) {
+            return new Promise(async (resolve, reject) => { 
+                const info = await stripe.checkout.sessions.retrieve(params.id);
+                
+                db.query('INSERT INTO or_88guj2io3r (odr) VALUES (?)', [
+                    JSON.stringify(info),
+                ], function (err, results, fields) {
+                    resolve({
+                        statusCode: 200,
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                });
+    
+                db.end();
+                
+                resolve({
+                    statusCode: 200,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        details: info
+                    })
+                })
+            });
+            break;
+        case "lru2b15dog":
+            return new Promise(async (resolve, reject) => {
+                db.query('INSERT INTO sb_rhskcowwmy (email, created_at) VALUES (?, ?)', [
+                    params.e,
+                    Math.floor(Date.now() / 1000)
+                ], function (err, results, fields) {
                     if (err) {
                         console.log(err.message);
                     }
-    
+
+                    db.end();
+                    
                     resolve({
                         statusCode: 200,
                         headers: {
                             'Access-Control-Allow-Origin': '*',
                             'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(results.map(result=>Object.values(result)))
+                        }
                     })
                 });
-    
-                db.end(function (err) {
-                    if (err) {
-                        return console.log(err.message);
-                    }
-                });
-                */
-                
-                const info = await stripe.checkout.sessions.retrieve(params.id);
-                
-                    resolve({
-                        statusCode: 200,
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            details: info
-                        })
-                    })
             });
             break;
         default:
