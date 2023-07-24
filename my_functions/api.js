@@ -130,12 +130,13 @@ exports.handler = async function (event, context) {
             break;
         case "re4kvlb13v":
             return new Promise(async (resolve, reject) => {
-                db.query('INSERT INTO ts_b4j94kifep (pc, co, rt, au, st, created_at) VALUES (?, ?, ?, ?, ?, ?)', [
+                db.query('INSERT INTO ts_b4j94kifep (pc, co, rt, au, tr, st, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                     params.p,
                     params.c,
                     params.r,
                     params.a,
-                    params.s,
+                    params.t,
+                    0,
                     Math.floor(Date.now() / 1000)
                 ], function (err, results, fields) {
                     if (err) {
