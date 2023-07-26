@@ -3,3 +3,7 @@
   publish = "dist/"
   command  = "npx browserslist@latest --update-db && npm install mysql && npm install stripe && npm run build"
   functions = "my_functions/"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
