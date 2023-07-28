@@ -57,12 +57,12 @@ exports.handler = async function (event, context) {
                     shipping_address_collection: {
                         allowed_countries: ['US', 'CA', 'GB', 'DE'], // Set the list of allowed countries for shipping
                     },
-                      phone_number_collection: {
+                    phone_number_collection: {
                         enabled: true,
-                      },
+                    },
                     automatic_tax: {
-    enabled: true,
-  },
+                        enabled: true,
+                    }
                 });
                 
                 resolve({
