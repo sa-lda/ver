@@ -42,7 +42,7 @@ exports.handler = async function (event, context) {
                 items.forEach((item)=> {
                     lineItems.push(
                         {
-                            price: item.id,
+                            price: item.price,
                             quantity: item.quantity
                         }
                     )
@@ -55,7 +55,12 @@ exports.handler = async function (event, context) {
                     success_url: "http://localhost:3000/success?id={CHECKOUT_SESSION_ID}",
                     cancel_url: "http://localhost:3000/cancel",
                     shipping_address_collection: {
-                        allowed_countries: ['US', 'CA', 'GB', 'DE'], // Set the list of allowed countries for shipping
+                        allowed_countries: [
+                          "AU", "AT", "BE", "BR", "CA", "CN", "HR", "CZ", "DK", "EE", "FI", "FR", "DE",
+                          "GR", "HK", "HU", "IS", "IE", "IT", "JP", "LV", "LT", "LU", "MO", "MY", "NL",
+                          "NZ", "NO", "PL", "PT", "RO", "RS", "SG", "SK", "SI", "KR", "ES", "SE", "CH",
+                          "TW", "GB", "US",
+                        ]
                     },
                     phone_number_collection: {
                         enabled: true,
