@@ -4,9 +4,14 @@
   command  = "npx browserslist@latest --update-db && npm install mysql && npm install stripe && npm run build"
   functions = "my_functions/"
 
-  
 [[redirects]]
   from = "/rest/*"
   to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
   force = true
